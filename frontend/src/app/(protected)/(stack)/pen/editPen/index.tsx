@@ -32,6 +32,7 @@ import useVariableStore from '@/store/variableStore';
 import usePenStore from '@/store/penStore';
 import MessageModal from '@/components/modal/MessageModal';
 import TwoButtonsModal from '@/components/modal/TwoButtonsModal';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 const { width } = Dimensions.get('window');
 
 type Item = {
@@ -135,7 +136,7 @@ const EditPen: React.FC = () => {
         setItems((prev) => [
           ...(prev ?? []),
           {
-            label: type.name,
+            label: typeOfObjectLabel(type.name),
             value: type.id,
           },
         ]);
