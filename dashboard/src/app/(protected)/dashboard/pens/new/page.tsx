@@ -7,6 +7,7 @@ import penStore, { Pen } from '@/store/penStore';
 import { useAuthStore } from '@/store/authStore';
 import useFieldStore from '@/store/fieldStore';
 import useTypeOfObjectStore from '@/store/typeOfObjectStore';
+import { typeOfObjectLabel } from '@/utils/typeOfObject';
 
 interface FormData {
   name: string;
@@ -220,7 +221,7 @@ export default function NewPenPage() {
                       onChange={() => handleTypeOfObjectChange(type.id)}
                       className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                     />
-                    <span className="text-sm text-gray-700">{type.name}</span>
+                    <span className="text-sm text-gray-700">{typeOfObjectLabel(type.name)}</span>
                   </label>
                 ))}
               </div>
