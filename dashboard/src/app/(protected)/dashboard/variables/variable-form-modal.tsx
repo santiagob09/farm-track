@@ -6,6 +6,7 @@ import variableStore, { Variable, VariableType } from '@/store/variableStore';
 import type { VariableInput } from '@/store/variableStore';
 import { useAuthStore } from '@/store/authStore';
 import useTypeOfObjectStore from '@/store/typeOfObjectStore';
+import { typeOfObjectLabel } from '@/utils/typeOfObject';
 
 interface VariableFormModalProps {
   isOpen: boolean;
@@ -286,7 +287,7 @@ export default function VariableFormModal({
                       className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                       disabled={loading}
                     />
-                    <span className="text-sm text-gray-700">{t.name}</span>
+                    <span className="text-sm text-gray-700">{typeOfObjectLabel(t.name)}</span>
                   </label>
                 ))
               ) : (
