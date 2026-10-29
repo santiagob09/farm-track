@@ -34,6 +34,7 @@ import { ViewStyle } from 'react-native-size-matters';
 import useReportStore from '@/store/reportStore';
 import usePenVariableTypeOfObjectStore from '@/store/pen_variable_typeOfObject_store';
 import useMeasurementStatsStore from '@/store/measurementStatsStore';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 const { width } = Dimensions.get('window');
 
 type Item = {
@@ -209,7 +210,7 @@ const CreatePen: React.FC = () => {
         setPenName(penFound.name);
         setTypeOfObjectDropDown(
           penFound?.type_of_objects.map((type: any) => ({
-            label: type.name,
+            label: typeOfObjectLabel(type.name),
             value: type.id,
           }))
         );
