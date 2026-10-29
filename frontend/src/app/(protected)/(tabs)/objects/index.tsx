@@ -48,6 +48,7 @@ import TwoButtonsModal from '@/components/modal/TwoButtonsModal';
 import MessageModal from '@/components/modal/MessageModal';
 import capitalizeWords from '@/utils/capitalizeWords/capitalizeWords';
 import CreateButton from '@/components/createButton/CreateButton';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 
 interface ListItemProps {
   item: any;
@@ -367,7 +368,7 @@ export default function ObjectScreen() {
                 color: '#000000',
               }}
             >
-              {item?.name}
+              {typeOfObjectLabel(item?.name)}
             </Text>
             {item.variables.length > 0 && isExpanded ? (
               <View style={{ paddingBottom: rMS(8) }}>
