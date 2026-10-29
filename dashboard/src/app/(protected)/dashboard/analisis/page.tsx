@@ -34,6 +34,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogC
 import useReportStore from '@/store/reportStore';
 import { useChatbotStore } from '@/store/chatbotStore';
 import { Chatbot } from '@/components/Chatbot/Chatbot';
+import { isInstallationType, typeOfObjectLabel } from '@/utils/typeOfObject';
 
 type TabType = "general" | "pens" | "numerical";
 
@@ -416,7 +417,7 @@ const DashboardPage: React.FC = () => {
           `"${m.pen || ''}"`, 
           `"${m.measureDate ? new Date(m.measureDate).toLocaleString() : ''}"`, 
           `"${(String(m.correct) === '1' || String(m.correct) === 'true') ? 'Sí' : 'No'}"`, 
-          `"${m.type_of_object || ''}"`, 
+          `"${typeOfObjectLabel(m.type_of_object)}"`, 
           `"${Array.isArray(m.optimal_values) ? m.optimal_values.join('; ') : ''}"`, 
           `"${m.optimo_min !== undefined ? m.optimo_min : ''}"`, 
           `"${m.optimo_max !== undefined ? m.optimo_max : ''}"`, 
@@ -454,7 +455,7 @@ const DashboardPage: React.FC = () => {
       const totalReportes = new Set(allMeasurements.map(m => m.report_id)).size;
       const totalMediciones = allMeasurements.length;
       const totalAnimales = allMeasurements.filter(m => m.type_of_object === 'Animal').length;
-      const totalInstalacion = allMeasurements.filter(m => m.type_of_object === 'Installation').length;
+      const totalInstalacion = allMeasurements.filter(m => isInstallationType(m.type_of_object)).length;
 
       // 2. Crear PDF
       const doc = new jsPDF({ orientation: 'landscape' });
@@ -617,7 +618,7 @@ const DashboardPage: React.FC = () => {
         const correctCountAnimal = animalMeasurements.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length;
         const percentAnimal = totalCountAnimal > 0 ? Math.round((correctCountAnimal / totalCountAnimal) * 100) : 0;
         // Instalaciones
-        const installationMeasurements = reportMeasurements.filter(m => m.type_of_object === 'Installation');
+        const installationMeasurements = reportMeasurements.filter(m => isInstallationType(m.type_of_object));
         const totalCountInstallation = installationMeasurements.length;
         const correctCountInstallation = installationMeasurements.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length;
         const percentInstallation = totalCountInstallation > 0 ? Math.round((correctCountInstallation / totalCountInstallation) * 100) : 0;
@@ -770,7 +771,7 @@ const DashboardPage: React.FC = () => {
             const animalCorrect = animalMeasurements.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length;
             const animalPercent = animalTotal > 0 ? Math.round((animalCorrect / animalTotal) * 100) : null;
             // Instalaciones
-            const installMeasurements = penMeasurements.filter(m => m.type_of_object === 'Installation');
+            const installMeasurements = penMeasurements.filter(m => isInstallationType(m.type_of_object));
             const installTotal = installMeasurements.length;
             const installCorrect = installMeasurements.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length;
             const installPercent = installTotal > 0 ? Math.round((installCorrect / installTotal) * 100) : null;
@@ -1038,7 +1039,7 @@ const DashboardPage: React.FC = () => {
                         <div className="rd-score3">
                           {renderGauge(summaryReportMeasurements, _prevMeas, 'General', <Leaf size={14} />)}
                           {renderGauge(summaryReportMeasurements.filter(m => m.type_of_object === 'Animal'), _prevMeas.filter(m => m.type_of_object === 'Animal'), 'Animales', <Activity size={14} />)}
-                          {renderGauge(summaryReportMeasurements.filter(m => m.type_of_object === 'Installation'), _prevMeas.filter(m => m.type_of_object === 'Installation'), 'Instalaciones', <Warehouse size={14} />)}
+                          {renderGauge(summaryReportMeasurements.filter(m => isInstallationType(m.type_of_object)), _prevMeas.filter(m => isInstallationType(m.type_of_object)), 'Instalaciones', <Warehouse size={14} />)}
                         </div>
                       </div>
                     </section>
@@ -1051,7 +1052,7 @@ const DashboardPage: React.FC = () => {
                           <div className="rd-histstat"><div className="hs-label"><FileText size={14} />Reportes</div><div className="hs-val rd-num">{new Set(measurements.map(m => m.report_id)).size}</div></div>
                           <div className="rd-histstat"><div className="hs-label"><TrendingUp size={14} />Mediciones</div><div className="hs-val rd-num">{measurements.length}</div></div>
                           <div className="rd-histstat"><div className="hs-label"><Activity size={14} />En animales</div><div className="hs-val rd-num">{measurements.filter(m => m.type_of_object === 'Animal').length}</div></div>
-                          <div className="rd-histstat"><div className="hs-label"><Warehouse size={14} />En instalación</div><div className="hs-val rd-num">{measurements.filter(m => m.type_of_object === 'Installation').length}</div></div>
+                          <div className="rd-histstat"><div className="hs-label"><Warehouse size={14} />En instalación</div><div className="hs-val rd-num">{measurements.filter(m => isInstallationType(m.type_of_object)).length}</div></div>
                         </div>
                         <div className="rd-chartbox">
                           <div style={{ height: 260 }}>
@@ -1078,7 +1079,7 @@ const DashboardPage: React.FC = () => {
                                       afterLabel: (c: any) => {
                                         const rm = measurements.filter(m => String(m.report_id) === ids[c.dataIndex]);
                                         const a = rm.filter(m => m.type_of_object === 'Animal');
-                                        const inst = rm.filter(m => m.type_of_object === 'Installation');
+                                        const inst = rm.filter(m => isInstallationType(m.type_of_object));
                                         return [`${rm.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length} de ${rm.length} correctas`,
                                           `🐄 Animales: ${a.length ? _pctArr(a) + '%' : 'N/A'}`,
                                           `🏠 Instalaciones: ${inst.length ? _pctArr(inst) + '%' : 'N/A'}`];
@@ -1131,7 +1132,7 @@ const DashboardPage: React.FC = () => {
                           const st = _stFromPct(percent);
                           const am = pm.filter(m => m.type_of_object === 'Animal');
                           const aP = am.length ? Math.round((am.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length / am.length) * 100) : null;
-                          const im = pm.filter(m => m.type_of_object === 'Installation');
+                          const im = pm.filter(m => isInstallationType(m.type_of_object));
                           const iP = im.length ? Math.round((im.filter(m => String(m.correct) === '1' || String(m.correct) === 'true').length / im.length) * 100) : null;
                           return (
                             <div key={pen} className={`rd-pencard${selectedPen === pen ? ' sel' : ''}`} onClick={() => setSelectedPen(pen)}>
@@ -1197,7 +1198,7 @@ const DashboardPage: React.FC = () => {
                               return (
                                 <div key={variable} className={`rd-pencard${selectedVariable === variable ? ' sel' : ''}`} onClick={() => setSelectedVariable(variable)}>
                                   <div className="pc-top">
-                                    <div><div className="pc-name">{variable}</div><span className={`rd-tag ${last?.type_of_object === 'Installation' ? 'install' : 'animal'}`} style={{ marginTop: 6 }}>{last?.type_of_object === 'Installation' ? <Warehouse size={11} /> : <Activity size={11} />}{last?.type_of_object || 'N/A'}</span></div>
+                                    <div><div className="pc-name">{variable}</div><span className={`rd-tag ${isInstallationType(last?.type_of_object) ? 'install' : 'animal'}`} style={{ marginTop: 6 }}>{isInstallationType(last?.type_of_object) ? <Warehouse size={11} /> : <Activity size={11} />}{typeOfObjectLabel(last?.type_of_object) || 'N/A'}</span></div>
                                     <span className={`rd-chip ${st}`}>{st === 'ok' ? <Leaf size={13} /> : <AlertTriangle size={13} />}{_stLabel[st]}</span>
                                   </div>
                                   <div className="pc-score rd-num">{percent}%</div>
