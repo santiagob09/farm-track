@@ -32,6 +32,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import MessageModal from '../modal/MessageModal';
 import TwoButtonsModal from '../modal/TwoButtonsModal';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 
 interface ListItemProps {
   item: any;
@@ -273,7 +274,7 @@ const PenList: React.FC<PenListProps> = ({
                         fontWeight: 'bold',
                       }}
                     >
-                      {type_of_object.name}
+                      {typeOfObjectLabel(type_of_object.name)}
                     </Text>
                   </View>
                 </Pressable>

@@ -32,6 +32,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 
 interface ListItemProps {
   item: any;
@@ -203,7 +204,7 @@ const ReportDetail: React.FC<PenListProps> = ({
                 width: isExpanded ? '64%' : '90%',
               }}
             >
-              {item.type_of_object.name} -{' '}
+              {typeOfObjectLabel(item.type_of_object.name)} -{' '}
               {item.name ? item.name : item.correlative_id}
             </Text>
             <View
