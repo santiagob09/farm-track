@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import penStore from '@/store/penStore';
 import useTypeOfObjectStore from '@/store/typeOfObjectStore';
+import { typeOfObjectLabel } from '@/utils/typeOfObject';
 
 interface FormData {
   name: string;
@@ -194,7 +195,7 @@ export default function EditPenPage() {
                       onChange={() => toggleTypeOfObject(type.id)}
                       className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                     />
-                    <span className="text-sm text-gray-700">{type.name}</span>
+                    <span className="text-sm text-gray-700">{typeOfObjectLabel(type.name)}</span>
                   </label>
                 ))}
               </div>
