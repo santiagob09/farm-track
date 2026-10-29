@@ -30,6 +30,7 @@ import { useValidationRules } from '@/utils/validation/validationRules';
 import useVariableStore from '@/store/variableStore';
 import usePenVariableTypeOfObjectStore from '@/store/pen_variable_typeOfObject_store';
 import { isCategoricalValue, isNumericValue } from './_utils';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 const { width, height } = Dimensions.get('window');
 
 type Item = {
@@ -155,7 +156,7 @@ const EditVariable: React.FC = () => {
         setItems((prev) => [
           ...(prev ?? []),
           {
-            label: type.name,
+            label: typeOfObjectLabel(type.name),
             value: type.id,
           },
         ]);
