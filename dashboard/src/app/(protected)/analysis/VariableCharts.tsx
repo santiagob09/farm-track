@@ -13,6 +13,7 @@ import {
 import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { Bar, Line } from 'react-chartjs-2';
+import { isInstallationType, typeOfObjectLabel } from '@/utils/typeOfObject';
 
 // Define ReportData interface at the top level so it can be used throughout the file
 interface ReportData {
@@ -1037,7 +1038,7 @@ const VariableCharts: React.FC<VariableChartsProps> = ({
                 <h3 className="text-lg font-semibold mb-4 flex items-center justify-between">
                   <div>
                     <span>{variable}</span>
-                    <span className="text-xs text-gray-500 block">{latestReportMeasurements[0]?.type_of_object || 'N/A'}</span>
+                    <span className="text-xs text-gray-500 block">{typeOfObjectLabel(latestReportMeasurements[0]?.type_of_object) || 'N/A'}</span>
                   </div>
                   <div className="flex items-center">
                     {correctPercentage >= 80 ? (
@@ -1415,7 +1416,7 @@ const VariableCharts: React.FC<VariableChartsProps> = ({
               <h3 className="text-lg font-semibold mb-4 flex items-center justify-between">
                 <div>
                   <span>{variable}</span>
-                  <span className="text-xs text-gray-500 block">{latestReportMeasurements[0]?.type_of_object || 'N/A'}</span>
+                  <span className="text-xs text-gray-500 block">{typeOfObjectLabel(latestReportMeasurements[0]?.type_of_object) || 'N/A'}</span>
                 </div>
                 <div className="flex items-center">
                   {correctPercentage >= 80 ? (
