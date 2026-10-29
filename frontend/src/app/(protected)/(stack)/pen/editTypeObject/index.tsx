@@ -44,6 +44,7 @@ import { useValidationRules } from '@/utils/validation/validationRules';
 import useVariableStore from '@/store/variableStore';
 import { Swipeable } from 'react-native-gesture-handler';
 import usePenVariableTypeOfObjectStore from '@/store/pen_variable_typeOfObject_store';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 const { width } = Dimensions.get('window');
 
 type Item = {
@@ -181,7 +182,7 @@ const EditTypeObject: React.FC = () => {
         setItems((prev) => [
           ...(prev ?? []),
           {
-            label: type.name,
+            label: typeOfObjectLabel(type.name),
             value: type.id,
           },
         ]);
