@@ -10,6 +10,7 @@ import useFieldStore from "@/store/fieldStore";
 import { useAuthStore } from "@/store/authStore";
 import { useChatbotStore } from "@/store/chatbotStore";
 import { Chatbot } from "@/components/Chatbot/Chatbot";
+import { isInstallationType, typeOfObjectLabel } from '@/utils/typeOfObject';
 
 /* ─────────────────────────── helpers ─────────────────────────── */
 
@@ -205,7 +206,7 @@ export default function DashboardResumen() {
   }, [fields]);
 
   const animals = latest.filter((m) => m.type_of_object === "Animal").length;
-  const installations = latest.filter((m) => m.type_of_object === "Installation").length;
+  const installations = latest.filter((m) => isInstallationType(m.type_of_object)).length;
 
   const lastEval = reports.length
     ? new Date(reports[reports.length - 1].date).toLocaleDateString("es-AR", { day: "numeric", month: "long" })
