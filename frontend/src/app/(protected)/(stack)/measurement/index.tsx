@@ -40,6 +40,7 @@ const { width } = Dimensions.get('window');
 type Item = {
   label: string;
   value: number | string;
+  name?: string;
 };
 
 export type NumericValue = {
@@ -211,6 +212,7 @@ const CreatePen: React.FC = () => {
         setTypeOfObjectDropDown(
           penFound?.type_of_objects.map((type: any) => ({
             label: typeOfObjectLabel(type.name),
+            name: type.name,
             value: type.id,
           }))
         );
@@ -230,7 +232,7 @@ const CreatePen: React.FC = () => {
         setFormData({
           ...formData,
           [field]: inputValue,
-          typeOfObjectName: objectName?.label ?? null,
+          typeOfObjectName: objectName?.name ?? null,
         });
       }
     }

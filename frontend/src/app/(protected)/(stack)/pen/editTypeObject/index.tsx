@@ -643,7 +643,7 @@ const EditTypeObject: React.FC = () => {
               fontFamily: 'Pro-Regular',
             }}
           >
-            {`${t('editTypeObject.subtitle')} ${type_of_object_name}`}
+            {`${t('editTypeObject.subtitle')} ${typeOfObjectLabel(String(type_of_object_name))}`}
           </Text>
           <View
             style={{

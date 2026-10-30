@@ -31,6 +31,7 @@ import useMeasurementStatsStore from '@/store/measurementStatsStore';
 import useFieldStore from '@/store/fieldStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveLog } from '@/utils/logger';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 const { width, height } = Dimensions.get('window');
 
 export type NumericValue = {
@@ -792,7 +793,7 @@ const CreateMeasurement: React.FC = () => {
           <TextInput
             mode="outlined"
             placeholderTextColor="#486732"
-            placeholder={`${t('measurementView.objectTextMeasurement')}${typeOfObjectName}`}
+            placeholder={`${t('measurementView.objectTextMeasurement')}${typeOfObjectLabel(String(typeOfObjectName))}`}
             editable={false}
             activeOutlineColor="transparent"
             outlineColor="#F1F1F1"

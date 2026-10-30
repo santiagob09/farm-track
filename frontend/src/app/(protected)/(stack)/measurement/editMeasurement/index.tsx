@@ -32,6 +32,7 @@ import usePenStore from '@/store/penStore';
 import { ViewStyle } from 'react-native-size-matters';
 import useReportStore from '@/store/reportStore';
 import Slider from '@react-native-community/slider';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 import {
   ModalComponent,
   SuccessModal,
@@ -514,7 +515,7 @@ const CreatePen: React.FC = () => {
             <TextInput
               mode="outlined"
               placeholderTextColor="#486732"
-              placeholder={`Objeto a medir: ${typeOfObjectName}`}
+              placeholder={`Objeto a medir: ${typeOfObjectLabel(String(typeOfObjectName))}`}
               editable={false}
               activeOutlineColor="transparent"
               outlineColor="#F1F1F1"

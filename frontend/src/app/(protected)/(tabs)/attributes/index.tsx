@@ -47,6 +47,7 @@ import MessageModal from '@/components/modal/MessageModal';
 import TwoButtonsModal from '@/components/modal/TwoButtonsModal';
 import capitalizeWords from '@/utils/capitalizeWords/capitalizeWords';
 import CreateButton from '@/components/createButton/CreateButton';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 
 interface ListItemProps {
   item: any;
@@ -428,7 +429,7 @@ export default function AttributeScreen() {
                       fontWeight: 'bold',
                     }}
                   >
-                    {variable.name}
+                    {typeOfObjectLabel(variable.name)}
                   </Text>
                 </View>
               );
