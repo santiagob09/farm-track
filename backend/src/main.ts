@@ -14,8 +14,6 @@ import { validateEnvironment } from './config/env.config';
 
 dotenvConfig();
 
-console.log(typeof process.env.TOKEN_EXPIRES);
-
 // Validate environment variables
 try {
   validateEnvironment();
