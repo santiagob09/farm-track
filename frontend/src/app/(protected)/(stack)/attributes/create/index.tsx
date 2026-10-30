@@ -22,6 +22,7 @@ import { useFocusEffect } from 'expo-router';
 import { useValidationRules } from '@/utils/validation/validationRules';
 import useVariableStore from '@/store/variableStore';
 import MessageModal from '@/components/modal/MessageModal';
+import { typeOfObjectLabel } from '@/utils/typeOfObjectLabel';
 const { width, height } = Dimensions.get('window');
 
 type Item = {
@@ -156,7 +157,7 @@ const CreateAttribute: React.FC = () => {
         setItems((prev) => [
           ...(prev ?? []),
           {
-            label: type.name,
+            label: typeOfObjectLabel(type.name),
             value: type.id,
           },
         ]);
